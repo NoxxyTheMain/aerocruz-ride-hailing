@@ -33,7 +33,7 @@ docs/erd.png
   `driver_vehicle_assignments`        Junction/history table linking
                                       drivers to vehicles over time.
 
-  `trips`                             Stores ride requests, locations,
+  `All trips`                             Stores ride requests, locations,
                                       times, distance, fare and status.
 
   `payments`                          Stores one payment record for each
