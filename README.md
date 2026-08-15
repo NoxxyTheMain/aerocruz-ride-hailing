@@ -1,317 +1,231 @@
 # AeroCruz Ride-Hailing Database
 
-## Project Overview
+## 1. Database Architecture & Schema
 
-**AeroCruz** is a fictional ride-hailing platform that connects riders with drivers and vehicles for on-demand transportation.
+AeroCruz is a ride-hailing management database built with
+**MySQL 8.0+**. It models riders, drivers, vehicles, trips, payments and
+ratings using a normalized relational design.
 
-This project demonstrates the complete design and implementation of a relational database using **MySQL**, following the assignment's three-phase structure:
+### Entity Relationship Diagram
 
-1. DDL — database schema and constraints
-2. DML — realistic seed data
-3. DQL — business-focused queries and views
+The Entity Relationship Diagram is available at:
 
-The project is designed around a normalized ride-hailing domain rather than the prohibited `mamboleo_university` example.
-
-## Objectives
-
-The database demonstrates:
-
-- Relational database design
-- Primary and foreign keys
-- Referential integrity
-- Many-to-many relationships
-- Composite keys
-- AUTO_INCREMENT keys
-- Data validation constraints
-- Realistic data population
-- Aggregate functions
-- GROUP BY
-- ORDER BY
-- HAVING
-- Scalar subqueries
-- EXISTS/correlated subqueries
-- Business-oriented views
-- GitHub-ready SQL project organization
-
-## Domain
-
-AeroCruz manages:
-
-- Riders
-- Drivers
-- Vehicle types
-- Vehicles
-- Driver/vehicle assignments
-- Trips
-- Payments
-- Ratings
-
-The driver/vehicle assignment table represents the many-to-many relationship between drivers and vehicles over time. A driver can operate different vehicles at different periods, and a vehicle can be assigned to different drivers over its operational history.
-
-## Database Design
-
-The project contains eight tables:
-
-| Table | Purpose |
-|---|---|
-| `riders` | Stores AeroCruz customers |
-| `drivers` | Stores registered drivers |
-| `vehicle_types` | Defines ride categories such as Economy, Comfort, Premium and XL |
-| `vehicles` | Stores vehicles used by the platform |
-| `driver_vehicle_assignments` | Junction/history table connecting drivers and vehicles |
-| `trips` | Stores ride requests and completed/cancelled trips |
-| `payments` | Stores payment information for trips |
-| `ratings` | Stores rider ratings for completed trips |
-
-The design uses primary keys on all tables and foreign keys for relational integrity.
-
-The junction table `driver_vehicle_assignments` uses a composite primary key:
-
-```text
-(driver_id, vehicle_id, assigned_from)
-```
-
-This allows a driver/vehicle relationship to be represented over time without requiring a single permanent assignment.
-
-## Normalization
-
-The database separates independent entities into their own tables. For example, vehicle category pricing is stored in `vehicle_types` rather than repeatedly stored in every vehicle or trip record.
-
-Rider, driver, vehicle, payment and rating information is also separated to reduce duplication and improve data integrity.
-
-The design is intended to satisfy normal relational-design principles and avoid unnecessary repeating groups and duplicated descriptive data.
-
-## Entity Relationship Diagram
-
-The project includes:
-
-```text
+``` text
 docs/erd.png
 ```
 
-The diagram represents the final schema and its relationships.
+### Core Tables
 
-## Repository Structure
+  -----------------------------------------------------------------------
+  Table                               Purpose
+  ----------------------------------- -----------------------------------
+  `riders`                            Stores rider/customer details and
+                                      account status.
 
-```text
+  `drivers`                           Stores driver details, licences and
+                                      driver status.
+
+  `vehicle_types`                     Stores vehicle categories, fares
+                                      and passenger capacity.
+
+  `vehicles`                          Stores vehicles used by AeroCruz.
+
+  `driver_vehicle_assignments`        Junction/history table linking
+                                      drivers to vehicles over time.
+
+  `trips`                             Stores ride requests, locations,
+                                      times, distance, fare and status.
+
+  `payments`                          Stores one payment record for each
+                                      trip.
+
+  `ratings`                           Stores rider ratings and comments
+                                      for trips.
+  -----------------------------------------------------------------------
+
+The `driver_vehicle_assignments` table provides the project's
+**many-to-many relationship** between drivers and vehicles and uses the
+composite primary key:
+
+``` text
+(driver_id, vehicle_id, assigned_from)
+```
+
+### Data Types
+
+The schema uses MySQL-specific and domain-appropriate data types,
+including:
+
+-   `INT AUTO_INCREMENT` for identifiers.
+-   `VARCHAR` for names, contact details, locations and descriptions.
+-   `DATE` for registration, joining and assignment dates.
+-   `DATETIME` for trip, payment and rating timestamps.
+-   `DECIMAL(10,2)` for fares, payment amounts and vehicle pricing.
+-   `DECIMAL(6,2)` for trip distance.
+-   `ENUM` for controlled statuses and payment methods.
+-   `TINYINT` for ratings and passenger capacity.
+
+### Keys & Constraints
+
+-   Every table has a **Primary Key (PK)**.
+-   **Foreign Keys (FKs)** maintain relationships between related
+    tables.
+-   `UNIQUE` constraints protect values such as phone numbers, emails,
+    licence numbers and vehicle registration numbers.
+-   `NOT NULL`, `DEFAULT` and `CHECK` constraints enforce valid data.
+-   The schema includes both single-column primary keys and the
+    composite key in `driver_vehicle_assignments`.
+
+------------------------------------------------------------------------
+
+## 2. Setup & Installation
+
+### Prerequisite
+
+-   **MySQL 8.0 or later**
+-   MySQL Workbench or the MySQL command-line client
+-   Git/GitHub for the project repository
+
+### Project Structure
+
+``` text
 aerocruz-ride-hailing/
-│
 ├── README.md
-│
 ├── ddl/
 │   └── 01_schema.sql
-│
 ├── dml/
 │   └── 01_seed_data.sql
-│
 ├── dql/
 │   └── 01_queries.sql
-│
 └── docs/
     └── erd.png
 ```
 
-### `ddl/`
+### Initialization
 
-Contains the database schema and constraints.
+From the project root, the schema can be loaded with:
 
-### `dml/`
-
-Contains realistic sample data.
-
-### `dql/`
-
-Contains business questions, analytical queries and two management views.
-
-### `docs/`
-
-Contains the Entity Relationship Diagram.
-
-## Technologies
-
-- MySQL 8.0+
-- SQL
-- Git
-- GitHub
-
-## How to Run
-
-### 1. Run the DDL
-
-Open MySQL Workbench or another MySQL client and run:
-
-```sql
-SOURCE path/to/ddl/01_schema.sql;
+``` bash
+mysql -u root -p < ddl/01_schema.sql
 ```
 
-Alternatively, open `ddl/01_schema.sql` and execute it.
+Then load the sample data:
 
-The script creates and selects:
+``` bash
+mysql -u root -p < dml/01_seed_data.sql
+```
 
-```text
+Finally, run the business queries and create the views:
+
+``` bash
+mysql -u root -p < dql/01_queries.sql
+```
+
+The database created by the schema is:
+
+``` text
 aerocruz_db
 ```
 
-### 2. Run the DML
+The same scripts can also be opened and executed in **MySQL Workbench**.
 
-After the schema has been created, execute:
+### Credentials
 
-```text
-dml/01_seed_data.sql
+This project is a database-only SQL project and does not require
+application environment variables. If an application is later connected
+to the database, credentials should be stored in a local `.env` file and
+must not be committed to GitHub.
+
+------------------------------------------------------------------------
+
+## 3. Sample Queries & Usage
+
+The DQL script contains business-focused queries covering the required
+SQL concepts, including:
+
+-   `COUNT`
+-   `SUM`
+-   `AVG`
+-   `MIN` / `MAX`
+-   `GROUP BY`
+-   `ORDER BY`, including multi-column sorting
+-   `HAVING`
+-   Scalar subqueries
+-   `EXISTS` / correlated subqueries
+-   `JOIN`-based analysis
+-   Two management views
+
+Examples of the business questions answered include:
+
+``` sql
+-- Total completed-trip revenue generated by each driver
+SELECT driver_id, SUM(fare) AS total_revenue
+FROM trips
+WHERE trip_status = 'completed'
+GROUP BY driver_id;
 ```
 
-This populates the database with realistic riders, drivers, vehicles, assignments, trips, payments and ratings.
-
-### 3. Run the DQL
-
-Finally execute:
-
-```text
-dql/01_queries.sql
+``` sql
+-- Riders who have spent the most on completed trips
+SELECT rider_id, SUM(fare) AS total_spent
+FROM trips
+WHERE trip_status = 'completed'
+GROUP BY rider_id
+ORDER BY total_spent DESC;
 ```
 
-This runs the business queries and creates the two management views.
+### Management Views
 
-## DDL Coverage
+The DQL script creates two useful views:
 
-The schema demonstrates:
+-   `vw_driver_performance` --- summarizes completed trips, revenue,
+    average fare and customer rating for each driver.
+-   `vw_rider_spending` --- summarizes completed trips, total spending
+    and average fare for each rider.
 
-- PRIMARY KEY
-- FOREIGN KEY
-- AUTO_INCREMENT
-- Composite PRIMARY KEY
-- NOT NULL
-- UNIQUE
-- CHECK
-- DEFAULT
-- ENUM
-- Referential integrity
-- Many-to-many relationship
-- Normalized relational structure
+### Sample Data
 
-## DML Coverage
+The database is populated with realistic sample records:
 
-The seed data includes realistic records for:
+  Table                            Records
+  ------------------------------ ---------
+  `riders`                              15
+  `drivers`                             15
+  `vehicle_types`                        4
+  `vehicles`                            20
+  `driver_vehicle_assignments`          20
+  `trips`                               30
+  `payments`                            30
+  `ratings`                             27
 
-- 15 riders
-- 15 drivers
-- 4 vehicle types
-- 20 vehicles
-- 20 driver/vehicle assignments
-- 30 trips
-- 30 payments
-- 27 ratings
+The smaller `vehicle_types` lookup table is intentionally limited to
+realistic vehicle categories.
 
-Lookup data such as vehicle types contains fewer than 15 records because the assignment explicitly allows genuinely small lookup tables to be smaller.
+### Performance
 
-## DQL Coverage
+Primary and unique key columns are indexed by the schema, including:
 
-The DQL script contains more than the required 10 queries and demonstrates:
+-   All table primary keys
+-   `phone` and `email` in `riders` and `drivers`
+-   `license_number` in `drivers`
+-   `registration_number` in `vehicles`
+-   `type_name` in `vehicle_types`
+-   `trip_id` in `payments` and `ratings`
+-   The composite key in `driver_vehicle_assignments`
 
-- COUNT
-- SUM
-- AVG
-- MIN/MAX
-- GROUP BY
-- ORDER BY
-- Multi-column ORDER BY
-- HAVING
-- Scalar subquery
-- EXISTS
-- Correlated subquery
-- JOIN-based analysis
-- Two useful views
+Foreign-key columns are also indexed as required by the MySQL/InnoDB
+relational implementation.
 
-Each query is preceded by a comment describing the real AeroCruz business question it answers.
+For larger datasets, additional indexes can be considered on frequently
+filtered or joined columns such as `trips.driver_id`, `trips.rider_id`
+and `trips.trip_status`.
 
-## Management Views
+------------------------------------------------------------------------
 
-### `vw_driver_performance`
+## Database Purpose
 
-Provides:
-
-- Driver name
-- Completed trips
-- Total revenue
-- Average fare
-- Customer rating
-
-This can help AeroCruz management compare driver performance.
-
-### `vw_rider_spending`
-
-Provides:
-
-- Rider name
-- Completed trips
-- Total spending
-- Average trip fare
-
-This can help management understand rider activity and spending.
-
-## GitHub Commit Plan
-
-The assignment requires meaningful staggered commits and genuine contributions from group members.
-
-Do not fabricate commit authors or timestamps.
-
-A legitimate sequence is:
-
-### Phase 1 — DDL
-
-```text
-ddl: create AeroCruz database schema
-```
-
-### Phase 2 — DML
-
-```text
-dml: add AeroCruz seed data
-```
-
-### Phase 3 — DQL
-
-Possible genuine commits include:
-
-```text
-dql: add aggregate trip analysis
-dql: add driver and rider performance queries
-dql: add AeroCruz management views
-```
-
-Each group member should commit using their own GitHub account as required by the assignment.
-
-## Contributors
-
-Add the actual group members here before submission.
-
-```text
-1. ______________________________
-2. ______________________________
-3. ______________________________
-4. ______________________________
-5. ______________________________
-6. ______________________________
-```
-
-## Submission Checklist
-
-Before submission, confirm:
-
-- [ ] Repository has the required folder structure
-- [ ] All group members have made genuine commits
-- [ ] DDL executes successfully on a fresh MySQL database
-- [ ] DML executes successfully after DDL
-- [ ] DQL queries execute successfully
-- [ ] Both views are created successfully
-- [ ] ERD matches the final schema
-- [ ] README is complete
-- [ ] Repository is public or the lecturer has been added as a collaborator
-- [ ] Group member names are included in the submission comment
-- [ ] Repository URL is submitted through the class submission link
-
-## Academic Integrity
-
-This is an original AeroCruz database design created for the group project. The schema, sample data and queries should not be copied from another group's project.
-
-The final GitHub history should reflect genuine work performed by the actual group members.
+This project demonstrates the complete **DDL → DML → DQL** workflow for
+a real-world relational database. It separates schema creation, sample
+data and business queries into dedicated scripts while maintaining
+primary keys, foreign keys, constraints, normalization and useful
+management views.
