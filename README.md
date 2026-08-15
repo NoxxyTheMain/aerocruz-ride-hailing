@@ -1,5 +1,19 @@
 # AeroCruz Ride-Hailing Database
 
+## Group Members Names
+1. Allan Senteu
+2. Allan Efedha
+3. Godana Dabasso
+4. Mark Irari
+5. Timothy Mugo
+6. Shanice Shangi
+7. John Bosire
+8. Leon Mwaura
+9. Melson Mwenda
+10. Simon Rukwaro
+11. Shirlie Atieno
+12. Cecilia Mutua
+
 ## 1. Database Architecture & Schema
 
 AeroCruz is a ride-hailing management database built with
