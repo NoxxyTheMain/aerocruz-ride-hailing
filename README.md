@@ -30,7 +30,7 @@ docs/erd.png
 
   `vehicles`                          Stores vehicles used by AeroCruz.
 
-  `driver_vehicle_assignments`        Junction/history table linking
+  `driver_vehicle_assignments`        Junctions/history table linking
                                       drivers to vehicles over time.
 
   `All trips`                             Stores ride requests, locations,
