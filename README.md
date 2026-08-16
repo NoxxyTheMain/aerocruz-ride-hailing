@@ -7,7 +7,7 @@
 4. Mark Irari kimani
 5. Timothy Mugo
 6. Shanice Shangi
-7. bosirejohn14-beep
+7. Bosire John (bosirejohn14-beep)
 8. Leon Mwaura
 9. Melson Mwenda
 10. Simon Rukwaro
