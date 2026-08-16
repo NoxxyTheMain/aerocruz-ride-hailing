@@ -12,7 +12,7 @@
 9. Melson Mwenda
 10. Simon Rukwaro
 11. Atieno shirlie (ms-tatii)
-12. Cecilia Mutua
+12. Cecilia Mutua (ceceamore837-del)
 
 ## 1. Database Architecture & Schema
 
