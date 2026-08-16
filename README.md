@@ -2,7 +2,7 @@
 
 ## Group Members Names
 1. Allan Senteu
-2. Allan liyosi
+2. Allan Efedha
 3. Godana Dabasso
 4. Mark Irari kimani
 5. Timothy Mugo
