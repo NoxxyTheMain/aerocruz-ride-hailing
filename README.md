@@ -1,6 +1,7 @@
 # AeroCruz Ride-Hailing Database
 
-## Group Members Names
+## Group Member Names
+GitHub usernames are indicated in brackets.
 1. Allan Senteu
 2. Allan Efedha
 3. Godana Dabasso
