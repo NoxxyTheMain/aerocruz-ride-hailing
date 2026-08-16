@@ -11,7 +11,7 @@
 8. Leon Mwaura
 9. Melson Mwenda
 10. Simon Rukwaro
-11. Atieno shirlie 
+11. Atieno shirlie (ms-tatii)
 12. Cecilia Mutua
 
 ## 1. Database Architecture & Schema
