@@ -4,7 +4,7 @@
 1. Allan Senteu
 2. Allan Efedha
 3. Godana Dabasso
-4. Mark Irari
+4. Mark Irari kimani
 5. Timothy Mugo
 6. Shanice Shangi
 7. John Bosire
