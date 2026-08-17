@@ -18,12 +18,12 @@ INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_
 INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (6, 'Faith', 'Njeri', '+254711000006', 'faith.njeri06@example.com', '2026-01-16', 'active');
 INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (7, 'philip', 'korir', '+254711000007', 'george.otieno07@example.com', '2026-01-19', 'active');
 INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (8, 'Hannah', 'Chebet', '+254711000008', 'hannah.chebet08@example.com', '2026-01-21', 'active');
-INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (9, 'Irene', 'Muthoni', '+254711000009', 'irene.muthoni09@example.com', '2026-01-24', 'active');
+INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (9, 'mercy', 'Muthoni', '+254711000009', 'mercy.muthoni09@example.com', '2026-01-24', 'active');
 INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (10, 'James', 'Kamau', '+254711000010', 'james.kamau10@example.com', '2026-01-27', 'active');
 INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (11, 'Kevin', 'Omondi', '+254711000011', 'kevin.omondi11@example.com', '2026-02-01', 'active');
 INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (12, 'Lucy', 'Wambui', '+254711000012', 'lucy.wambui12@example.com', '2026-02-03', 'active');
 INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (13, 'Mark', 'Kiplangat', '+254711000013', 'mark.kiplangat13@example.com', '2026-02-06', 'active');
-INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (14, 'Nancy', 'Akinyi', '+254711000014', 'nancy.akinyi14@example.com', '2026-02-09', 'active');
+INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (14, 'faith', 'esendi', '+254711000014', 'faith.esendi14@example.com', '2026-02-09', 'active');
 INSERT INTO riders (rider_id, first_name, last_name, phone, email, registration_date, status) VALUES (15, 'Peter', 'Mutua', '+254711000015', 'peter.mutua15@example.com', '2026-02-12', 'active');
 
 -- ------------------------------------------------------------
